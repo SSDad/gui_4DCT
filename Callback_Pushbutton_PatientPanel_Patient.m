@@ -33,24 +33,35 @@ if PatientPath ~=0
     
     fd_allDates = fun_getAllSubFolders(PatientPath);
     nDate = length(fd_allDates);
+    hWB = waitbar(0, 'Exploring image folders...');
     for iDate = 1:nDate
-        fd_allGates = fun_getAllSubFolders(fullfile(fd_allDates(iDate).folder, fd_allDates(iDate).name));
-        modality{iDate} = fun_getDateModality(fd_allGates);
+        fd_allGates{iDate} = fun_getAllSubFolders(fullfile(fd_allDates(iDate).folder, fd_allDates(iDate).name));
+        modality{iDate} = fun_getDateModality(fd_allGates{iDate});
+        waitbar(iDate/nDate, hWB, 'Exploring image folders...');
     end
+    waitbar(1, hWB, 'Bingo!');
+    pause(1);
+    close(hWB)
+    data.ImgInfo.fd_allDates = fd_allDates;
+    data.ImgInfo.fd_allGates = fd_allGates;
 
     % fill table
-    data2 = guidata(hFig2);
-    hDateTable = data2.Panel.Date.Comp.Table.Date;
-    
     tableData = cell(nDate, 3);
     for iDate = 1:nDate
         tableData{iDate, 1} = false;
         tableData{iDate, 2} = fd_allDates(iDate).name;
         tableData{iDate, 3} = modality{iDate};
     end
-
-    hDateTable.Data = tableData;
+    
+    tableData{1, 1} = true; % first date selected
         
+    data2 = guidata(hFig2);
+    data2.Panel.Date.Comp.Table.Date.Data = tableData;
+        
+    guidata(hFig, data);
+    guidata(hFig2, data2);
+    
+    fillGateTable;
     
     hFig2.Name = PatientID;
     hFig2.Visible = 'on';

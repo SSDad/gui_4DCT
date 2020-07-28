@@ -6,6 +6,17 @@ global hFig hFig2
 % global reContL
 % global contrastRectLim
 
+%% for dual monitor
+% MP = get(0, 'MonitorPositions');
+% Shift = [0 0];
+% if size(MP, 1) == 2  % dual monitor
+%     Shift    = MP(2, 1:2);
+%   FigH     = figure(varargin{:}, 'Visible', 'off');
+%   set(FigH, 'Units', 'pixels');
+%   pos      = get(FigH, 'Position');
+%   set(FigH, 'Position', [pos(1:2) + Shift, pos(3:4)], ...
+%             'Visible', paramVisible);
+
 %% main window
 hFig = figure('MenuBar',            'none', ...
                     'Toolbar',              'none', ...
@@ -46,10 +57,11 @@ hFig2 = figure('MenuBar',            'none', ...
                     'Position',             [0.05 0.1 0.15 0.8],...
                     'Color',                 'black', ...
                     'CloseRequestFcn', @figCloseReq_ImgInfo, ...
-                    'Visible',               'on');
+                    'Visible',               'off');
 
 data2.Panel = addPanel2(hFig2);
 data2.Panel.Date.Comp = addComponents2Panel2_Date(data2.Panel.Date.hPanel);
+data2.Panel.Gate.Comp = addComponents2Panel2_Gate(data2.Panel.Phase.hPanel);
 % data2.Panel.Tumor.Comp = addComponents2Panel2_Tumor(data2.Panel.Tumor.hPanel);
 % data2.Panel.Button.Comp = addComponents2Panel2_Button(data2.Panel.Button.hPanel);
 % data2.Panel.Profile.Comp = addComponents2Panel2_Profile(data2.Panel.Profile.hPanel);
