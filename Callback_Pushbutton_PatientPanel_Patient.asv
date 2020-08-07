@@ -30,21 +30,33 @@ end
 
 if PatientPath ~=0
     [~, PatientID] = fileparts(PatientPath);
+    [junk, DataPathName] = fileparts(DataPath);
+    Mat.Path = fullfile(junk, [DataPathName, '_MatData'], PatientID);
+    Mat.PathInfoFileName = fullfile(Mat.Path, 'PathInfo');
     
-    fd_allDates = fun_getAllSubFolders(PatientPath);
-    nDate = length(fd_allDates);
-    hWB = waitbar(0, 'Exploring image folders...');
-    for iDate = 1:nDate
-        fd_allGates{iDate} = fun_getAllSubFolders(fullfile(fd_allDates(iDate).folder, fd_allDates(iDate).name));
-        modality{iDate} = fun_getDateModality(fd_allGates{iDate});
-        waitbar(iDate/nDate, hWB, 'Exploring image folders...');
+    if exist(MatPath, 'dir')
+        load(MatPathInfoFileName);
+        nDate = length(fd_allDates);
+    else
+        mkdir(MatPath);
+        fd_allDates = fun_getAllSubFolders(PatientPath);
+        nDate = length(fd_allDates);
+        hWB = waitbar(0, 'Exploring image folders...');
+        for iDate = 1:nDate
+            fd_allGates{iDate} = fun_getAllSubFolders(fullfile(fd_allDates(iDate).folder, fd_allDates(iDate).name));
+            modality{iDate} = fun_getDateModality(fd_allGates{iDate});
+            waitbar(iDate/nDate, hWB, 'Exploring image folders...');
+        end
+        waitbar(1, hWB, 'Bingo!');
+        pause(1);
+        close(hWB)
+        save(MatPathInfoFileName, 'fd_allDates', 'fd_allGates', 'modality');
     end
-    waitbar(1, hWB, 'Bingo!');
-    pause(1);
-    close(hWB)
     data.ImgInfo.fd_allDates = fd_allDates;
     data.ImgInfo.fd_allGates = fd_allGates;
 
+    data.ImgInfo.MatPath = MatPath;
+    
     % fill table
     tableData = cell(nDate, 3);
     for iDate = 1:nDate
@@ -61,7 +73,7 @@ if PatientPath ~=0
     guidata(hFig, data);
     guidata(hFig2, data2);
     
-    fillPhaseTable
+    fillGateTable;
     
     hFig2.Name = PatientID;
     hFig2.Visible = 'on';
