@@ -78,6 +78,11 @@ if PatientPath ~=0
     hFig2.Name = PatientID;
     hFig2.Visible = 'on';
 
+    data.Panel.ImgSet1.Comp.Text.Date.String =  tableData{data.selected.DateTableIndex, 2};
+    
+    junk = ['Gated ', num2str(data.selected.GateTableIndex-1)];
+    data.Panel.Gate.Comp.Text.Date.String =  junk;
+    
     guidata(hFig, data)
     
 end
