@@ -10,17 +10,21 @@ idcs = evnt.Indices;
 if ~isempty(idcs)
     oldIdx = selected.DateTableIndex;
     newIdx = idcs(1);
-    selected.DateTableIndex = newIdx;
+    selected.idxSS = newIdx;
     src.Data{newIdx, 1} = true;
+%     if idcs(1) == selected.idxSS
+%         set(data_main.hPlotObj.SS.z, 'visible', 'off')
+%         set(data_main.hPlotObj.SS.x, 'visible', 'off')
+%         set(data_main.hPlotObj.SS.y, 'visible', 'off')
+%     else
+    
     if newIdx ~= oldIdx
         src.Data{oldIdx, 1} = false;
 %         selected.idxSS = idcs(1);
 %         src.Data{selected.idxSS, 1} = true; 
         
-        data.selected = selected;
-        guidata(hFig, data);
-        
-        fillGateTable(selected.GateTableIndex);
+        data_main.selected = selected;
+        guidata(hFig_main, data_main);
     end
 end
 

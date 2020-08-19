@@ -46,6 +46,10 @@ data.Panel.AxialView.Comp = addComponents2Panel_AxialView(data.Panel.AxialView.h
 % 
 % data.FC = [255 255 102]/255;
 % 
+
+data.selected.DateTableIndex = 1;
+data.selected.GateTableIndex = 1;
+
 guidata(hFig, data);
 % 
 %% point fig
@@ -62,7 +66,7 @@ hFig2 = figure('MenuBar',            'none', ...
 
 data2.Panel = addPanel2(hFig2);
 data2.Panel.Date.Comp = addComponents2Panel2_Date(data2.Panel.Date.hPanel);
-data2.Panel.Gate.Comp = addComponents2Panel2_Gate(data2.Panel.Phase.hPanel);
+data2.Panel.Gate.Comp = addComponents2Panel2_Gate(data2.Panel.Gate.hPanel);
 % data2.Panel.Tumor.Comp = addComponents2Panel2_Tumor(data2.Panel.Tumor.hPanel);
 % data2.Panel.Button.Comp = addComponents2Panel2_Button(data2.Panel.Button.hPanel);
 % data2.Panel.Profile.Comp = addComponents2Panel2_Profile(data2.Panel.Profile.hPanel);

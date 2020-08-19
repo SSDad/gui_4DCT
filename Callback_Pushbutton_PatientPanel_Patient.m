@@ -65,7 +65,7 @@ if PatientPath ~=0
         tableData{iDate, 3} = modality{iDate};
     end
     
-    tableData{1, 1} = true; % first date selected
+    tableData{data.selected.DateTableIndex, 1} = true; % first date selected
         
     data2 = guidata(hFig2);
     data2.Panel.Date.Comp.Table.Date.Data = tableData;
@@ -73,10 +73,12 @@ if PatientPath ~=0
     guidata(hFig, data);
     guidata(hFig2, data2);
     
-    fillGateTable;
+    fillGateTable(data.selected.GateTableIndex);
     
     hFig2.Name = PatientID;
     hFig2.Visible = 'on';
+
+    guidata(hFig, data)
     
 end
     
