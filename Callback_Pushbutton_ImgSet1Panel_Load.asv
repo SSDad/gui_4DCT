@@ -1,8 +1,88 @@
-function Callback_Pushbutton_PatientPanel_Patient(src, evnt)
+function Callback_Pushbutton_ImgSet1Panel_Load(src, evnt)
 
 global hFig hFig2
 
 data = guidata(hFig);
+
+idx_Gate = data.selected.GateTableIndex;
+idx_Date = data.selected.DateTableIndex;
+
+gateString = ['Gated ', num2str(idx_Gate-1)];
+matPath = fullfile(data.ImgInfo.Mat.Path, gateString);
+
+if ~exist(matPath, 'dir')
+    mkdir(matPath);
+end
+
+allGates = data.ImgInfo.fd_allGates{idx_Date};
+allGatesName = {allGates.name}';
+ind = find(contains(allGatesName,  gateString));
+
+if length(ind) == 1
+    dcmPath =  fullfile(allGates(ind).folder, allGates(ind).name);
+    junk_fn = dir(fullfile(dcmPath, '*.dcm'));
+    junk_di = dicominfo(fullfile(junk_fn.folder, junk_fn.name));
+    
+else
+    junk_path =  fullfile(allGates(ind(1)).folder, allGates(ind(1)).name);
+    junk_path2 =  fullfile(allGates(ind(2)).folder, allGates(ind(2)).name);
+    junk_fn = dir(fullfile(junk_path, '*.dcm'));
+    junk_di = dicominfo(fullfile(junk_fn(1).folder, junk_fn(1).name));
+    if strcmp(junk_di.Modality, 'CT')
+        dcmPath = junk_path;
+        SSPath = junk_path2;
+    else
+        dcmPath = junk_path2;
+        SSPath = junk_path;
+    end
+    
+    ffn_CT = fullfile(matPath, [data.ImgInfo.PatientID, '_initialCT.mat']);
+    ffn_CTxyz = fullfile(matPath, [data.ImgInfo.PatientID, '_CTxyz.mat']);
+    ffn_CTinfo = fullfile(matPath, [data.ImgInfo.PatientID, '_CTinfo.mat']);
+    ffn_SS = fullfile(matPath, [data.ImgInfo.PatientID, '_SS.mat']);
+    
+    if exist(ffn_CT, 'file')
+        load(ffn_CT);
+    else
+        fun_readSS(data.ImgInfo.PatientID, SSPath, matPath);
+        
+
+end
+
+fun_readSS(data.ImgInfo.PatientID, SSPath, matPath);
+
+
+if idx_Date == 1
+else
+end
+
+% if exist(ffn_CT, 'file')
+% else    
+%     allGates = data.ImgInfo.fd_allGates{idx_Date};
+%     allGatesName = {allGates.name}';
+%     ind = find(contains(allGatesName,  gateString));
+%     
+%     if length(ind) == 1
+%         dcmPath =  fullfile(allGates(ind).folder, allGates(ind).name);
+%     else
+%         junk_path =  fullfile(allGates(ind(1)).folder, allGates(ind(1)).name);
+%         junk_path2 =  fullfile(allGates(ind(2)).folder, allGates(ind(2)).name);
+%         junk_fn = dir(fullfile(junk_path, '*.dcm'));
+%         junk_di = dicominfo(fullfile(junk_fn(1).folder, junk_fn(1).name));
+%         if strcmp(junk_di.Modality, 'CT')
+%             dcmPath = junk_path;
+%             SSPath = junk_path2;
+%         else
+%             dcmPath = junk_path2;
+%             SSPath = junk_path;
+%         end
+%         fun_readSS(data.ImgInfo.PatientID, SSPath, matPath);
+%     end
+%     fun_readCT(data.ImgInfo.PatientID, dcmPath, matPath);
+%         
+% end
+
+
 
 %% load image data
 td = tempdir;
@@ -54,8 +134,6 @@ if PatientPath ~=0
     end
     data.ImgInfo.fd_allDates = fd_allDates;
     data.ImgInfo.fd_allGates = fd_allGates;
-    data.ImgInfo.PatientID = PatientID;
-    data.ImgInfo.DataPath = DataPath;
 
     data.ImgInfo.Mat = Mat;
     
