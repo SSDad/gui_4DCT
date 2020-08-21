@@ -17,7 +17,10 @@ if ~isempty(idcs)
         selected.StructureIndices = [oldInd newIdx];
     end
 end
-    
+
+selected.StructureTitle = false;
+data3.Panel.Title.Comp.Table.Title.Data{1, 1} = false;
+
 viewInd = [1];
 updateSS(selected.StructureIndices, viewInd);
 

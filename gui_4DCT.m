@@ -55,6 +55,7 @@ data.Panel.View.Comp = addComponents2Panel_View(data.Panel.View.hPanel);
 selected.DateTableIndex = 1;
 selected.GateTableIndex = 1;
 selected.StructureIndices = [];
+selected.StructureTitle = false;
 
 guidata(hFig, data);
 
