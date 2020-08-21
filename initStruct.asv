@@ -1,5 +1,7 @@
 function  [hPO] = initStruct(SS, hA, Panel)
 
+hPO = [];
+
 %% Fill SS Table
 nS = length(SS.structures);
 tableData.Struct = cell(nS, 1);
@@ -15,9 +17,8 @@ Panel.List.Comp.Table.List.Data = tableData.Struct;
 %% view
 for iA = 1:length(hA)
     for iS = 1:nS
-        hPO(iA).Struct(iS) = line(hA(iA), 'XData', [], 'YData', [],  'Color', SS.contourColor{iS}/255, 'LineStyle', '-');
-    end
-end
+        hPO(iA).Contour(iS) = line(hA(iA), 'XData', [], 'YData', [],  'Marker', '.',  'MarkerSize', 16, 'Color', 'b', 'LineStyle', '-');
+
     
 
 %     set(data_main.hTable.SS, 'Data', tableData.Struct, 'Visible',   'on');

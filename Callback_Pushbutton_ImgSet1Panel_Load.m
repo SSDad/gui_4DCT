@@ -1,12 +1,13 @@
 function Callback_Pushbutton_ImgSet1Panel_Load(src, evnt)
 
 global hFig hFig3
+global selected
 
 data = guidata(hFig);
 data3 = guidata(hFig3);
 
-idx_Gate = data.selected.GateTableIndex;
-idx_Date = data.selected.DateTableIndex;
+idx_Gate = selected.GateTableIndex;
+idx_Date = selected.DateTableIndex;
 
 gateString = ['Gated ', num2str(idx_Gate-1)];
 matPath = fullfile(data.ImgInfo.Mat.Path, gateString);
@@ -45,7 +46,7 @@ else
     if exist(ffn_CT, 'file')
         load(ffn_CT);
     else
-        fun_readCT(data.ImgInfo.PatientID, dcmPath, matPath);
+        [CT] = fun_readCT(data.ImgInfo.PatientID, dcmPath, matPath);
     end
     
     if exist(ffn_SS, 'file')
@@ -57,12 +58,19 @@ else
     % view - CT
     hA = data.Panel.View.Comp.hA(1:3);
     hPlotObj = data.Panel.View.Comp.hPlotObj;
-    load3View(CT, hA, hPlotObj);
+    [selected.ImgSet1.sliceInd] = load3View(CT, hA, hPlotObj);
     
     % view - structure
-    [hPlotObj.Struct] = initStruct(SS, hA, data3.Panel);
+    [hPlotObj.SS] = initStruct(SS, hA, data3.Panel);
+    hFig3.Visible = 'on';
     
+    data.Panel.View.Comp.hPlotObj = hPlotObj;
+    data.CT = CT;
+    data.SS = SS;
+    guidata(hFig, data);
 end
+
+
 
 % if exist(ffn_CT, 'file')
 % else    

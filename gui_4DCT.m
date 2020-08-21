@@ -2,6 +2,7 @@ function gui_4DCT
 
 %% global 
 global hFig hFig2 hFig3
+global selected
 % global stopSlither
 % global reContL
 % global contrastRectLim
@@ -51,9 +52,9 @@ data.Panel.View.Comp = addComponents2Panel_View(data.Panel.View.hPanel);
 % data.FC = [255 255 102]/255;
 % 
 
-data.selected.DateTableIndex = 1;
-data.selected.GateTableIndex = 1;
-data.selected.StructureIndices = [];
+selected.DateTableIndex = 1;
+selected.GateTableIndex = 1;
+selected.StructureIndices = [];
 
 guidata(hFig, data);
 
@@ -89,7 +90,7 @@ hFig3 = figure('MenuBar',            'none', ...
                     'Position',             [0.05 0.4 0.15 0.5],...
                     'Color',                 'black', ...
                     'CloseRequestFcn', @figCloseReq, ...
-                    'Visible',               'on');
+                    'Visible',               'off');
 
 data3.Panel = addPanel3(hFig3);
 % data3.Panel.Title.Comp = addComponents2Panel3_Date(data2.Panel.Date.hPanel);

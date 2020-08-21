@@ -1,4 +1,4 @@
-function load3View(CT, hA, hPlotObj)
+function [sliceInd] = load3View(CT, hA, hPlotObj)
 
 hI = hPlotObj.I(1:3);
 hXHair = hPlotObj.XHair(1:3);
@@ -12,6 +12,8 @@ zz = CT.zz;
 iM = round(M/2);
 iN = round(N/2);
 iP = round(P/2);
+
+sliceInd = [iM iN iP];
 
 x0 = xx(1);
 y0 = yy(1);

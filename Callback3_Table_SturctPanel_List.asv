@@ -1,15 +1,19 @@
-function Callback2_DatePanel_DateTable(src, evnt)
+function Callback3_Table_SturctPanel_List(src, evnt)
 
-global hFig hFig2
+global selected
+global hFig hFig2 hFig3
 data = guidata(hFig);
 data2 = guidata(hFig2);
-
-selected = data.selected;
+data3 = guidata(hFig3);
 
 idcs = evnt.Indices;
 if ~isempty(idcs)
-    oldIdx = selected.DateTableIndex;
+    oldInd = selected.StructureIndices;
     newIdx = idcs(1);
+    if ismember(
+    
+    
+    
     selected.DateTableIndex = newIdx;
     src.Data{newIdx, 1} = true;
     if newIdx ~= oldIdx

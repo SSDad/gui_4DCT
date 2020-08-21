@@ -1,4 +1,4 @@
-function [CT, dcmInfo] = fun_readCT(MRN, fd_ct, fd_mat)
+function [CT] = fun_readCT(MRN, fd_ct, fd_mat)
 
 %% dcmInfo
     fnList = dir(fd_ct);
