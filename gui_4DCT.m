@@ -1,7 +1,7 @@
 function gui_4DCT
 
 %% global 
-global hFig hFig2
+global hFig hFig2 hFig3
 % global stopSlither
 % global reContL
 % global contrastRectLim
@@ -35,6 +35,7 @@ data.Panel = addPanel(hFig);
 data.Panel.Patient.Comp = addComponents2Panel_Patient(data.Panel.Patient.hPanel);
 data.Panel.ImgSet1.Comp = addComponents2Panel_ImgSet1(data.Panel.ImgSet1.hPanel);
 data.Panel.Gate.Comp = addComponents2Panel_Gate(data.Panel.Gate.hPanel);
+data.Panel.Struct.Comp = addComponents2Panel_Struct(data.Panel.Struct.hPanel);
 data.Panel.View.Comp = addComponents2Panel_View(data.Panel.View.hPanel);
 
 % data.Panel.View.Comp = addComponents2Panel_View(data.Panel.View.hPanel);
@@ -52,10 +53,12 @@ data.Panel.View.Comp = addComponents2Panel_View(data.Panel.View.hPanel);
 
 data.selected.DateTableIndex = 1;
 data.selected.GateTableIndex = 1;
+data.selected.StructureIndices = [];
 
 guidata(hFig, data);
-% 
-%% point fig
+
+
+%% image info fig
 hFig2 = figure('MenuBar',            'none', ...
                     'Toolbar',              'none', ...
                     'HandleVisibility',  'callback', ...
@@ -64,7 +67,7 @@ hFig2 = figure('MenuBar',            'none', ...
                     'Units',                 'normalized',...
                     'Position',             [0.05 0.1 0.15 0.8],...
                     'Color',                 'black', ...
-                    'CloseRequestFcn', @figCloseReq_ImgInfo, ...
+                    'CloseRequestFcn', @figCloseReq, ...
                     'Visible',               'off');
 
 data2.Panel = addPanel2(hFig2);
@@ -74,3 +77,21 @@ data2.Panel.Gate.Comp = addComponents2Panel2_Gate(data2.Panel.Gate.hPanel);
 % data2.Panel.Button.Comp = addComponents2Panel2_Button(data2.Panel.Button.hPanel);
 % data2.Panel.Profile.Comp = addComponents2Panel2_Profile(data2.Panel.Profile.hPanel);
 guidata(hFig2, data2);
+
+
+%% structure list
+hFig3 = figure('MenuBar',            'none', ...
+                    'Toolbar',              'none', ...
+                    'HandleVisibility',  'callback', ...
+                    'Name',                'STROM 4DCT Structure List', ...
+                    'NumberTitle',      'off', ...
+                    'Units',                 'normalized',...
+                    'Position',             [0.05 0.4 0.15 0.5],...
+                    'Color',                 'black', ...
+                    'CloseRequestFcn', @figCloseReq, ...
+                    'Visible',               'on');
+
+data3.Panel = addPanel3(hFig3);
+% data3.Panel.Title.Comp = addComponents2Panel3_Date(data2.Panel.Date.hPanel);
+% data3.Panel.List.Comp = addComponents2Panel3_Gate(data2.Panel.Gate.hPanel);
+guidata(hFig3, data3);

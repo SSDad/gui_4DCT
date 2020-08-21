@@ -50,25 +50,26 @@ hA(4).XAxisLocation='top';
 
 %% ImgSet1
 % Axial
-hPlotObj.XHair.ImgSet1.xLine = images.roi.Line(hA(1), 'Position',[0, 0; 0, 0], 'Color', 'r', 'LineWidth', 1);
-addlistener(hPlotObj.XHair.ImgSet1.xLine, 'MovingROI', @Callback_XHair_ImgSet1_x);
+hPlotObj.XHair(1).xLine = images.roi.Line(hA(1), 'Position',[0, 0; 0, 0], 'Color', 'r', 'LineWidth', 1);
+addlistener(hPlotObj.XHair(1).xLine, 'MovingROI', @Callback_XHair_ImgSet1_x);
 
-hPlotObj.XHair.ImgSet1.yLine = images.roi.Line(hA(1), 'Position',[0, 0; 0, 0], 'Color', 'g', 'LineWidth', 1);
-addlistener(hPlotObj.XHair.ImgSet1.yLine, 'MovingROI', @Callback_XHair_ImgSet1_yOnAxialView);
-
-% Coronal
-hPlotObj.XHair.ImgSet1.zLine = images.roi.Line(hA(2), 'Position',[0, 0; 0, 0], 'Color', 'b', 'LineWidth', 1);
-addlistener(hPlotObj.XHair.ImgSet1.zLine, 'MovingROI', @Callback_XHair_ImgSet1_z);
-                        
-hPlotObj.XHair.ImgSet1.xLine = images.roi.Line(hA(2), 'Position',[0, 0; 0, 0], 'Color', 'r', 'LineWidth', 1);
-addlistener(hPlotObj.XHair.ImgSet1.xLine, 'MovingROI', @Callback_XHair_ImgSet1_x);
+hPlotObj.XHair(1).yLine = images.roi.Line(hA(1), 'Position',[0, 0; 0, 0], 'Color', 'g', 'LineWidth', 1);
+addlistener(hPlotObj.XHair(1).yLine, 'MovingROI', @Callback_XHair_ImgSet1_yOnAxialView);
 
 % Sagital
-hPlotObj.XHair.ImgSet1.zLine = images.roi.Line(hA(3), 'Position',[0, 0; 0, 0], 'Color', 'b', 'LineWidth', 1);
-addlistener(hPlotObj.XHair.ImgSet1.zLine, 'MovingROI', @Callback_XHair_ImgSet1_z);
+hPlotObj.XHair(2).zLine = images.roi.Line(hA(3), 'Position',[0, 0; 0, 0], 'Color', 'b', 'LineWidth', 1);
+addlistener(hPlotObj.XHair(2).zLine, 'MovingROI', @Callback_XHair_ImgSet1_z);
 
-hPlotObj.XHair.ImgSet1.yLine = images.roi.Line(hA(3), 'Position',[0, 0; 0, 0], 'Color', 'g', 'LineWidth', 1);
-addlistener(hPlotObj.XHair.ImgSet1.yLine, 'MovingROI', @Callback_XHair_ImgSet1_yOnSagitalView);
+hPlotObj.XHair(2).yLine = images.roi.Line(hA(3), 'Position',[0, 0; 0, 0], 'Color', 'g', 'LineWidth', 1);
+addlistener(hPlotObj.XHair(2).yLine, 'MovingROI', @Callback_XHair_ImgSet1_yOnSagitalView);
+
+
+% Coronal
+hPlotObj.XHair(3).zLine = images.roi.Line(hA(2), 'Position',[0, 0; 0, 0], 'Color', 'b', 'LineWidth', 1);
+addlistener(hPlotObj.XHair(3).zLine, 'MovingROI', @Callback_XHair_ImgSet1_z);
+                        
+hPlotObj.XHair(3).xLine = images.roi.Line(hA(2), 'Position',[0, 0; 0, 0], 'Color', 'r', 'LineWidth', 1);
+addlistener(hPlotObj.XHair(3).xLine, 'MovingROI', @Callback_XHair_ImgSet1_x);
 
 %% ImgSet1
 

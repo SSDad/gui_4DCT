@@ -1,4 +1,4 @@
-function Callback_Pushbutton_PointPanel_MeasurementPlot(src, evnt)
+function Callback_Pushbutton_PatientPanel_ImgInfo(src, evnt)
 
 global hFig2
 

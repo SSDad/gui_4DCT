@@ -1,0 +1,18 @@
+function  [hPO] = initStruct(SS, hA, Panel)
+
+hPO = [];
+
+% Fill SS Table
+nS = length(SS.structures);
+tableData.Struct = cell(nS, 1);
+for iS = 1:nS
+    sCLR = dec2hex(SS.contourColor{iS});
+    sCLR_Char = reshape(sCLR', 1, 6);
+    tableData.Struct{iS, 2} = ['<html><font color =' sCLR_Char '>' SS.Names{iS} '</font></html>'];
+    tableData.Struct{iS, 1} = false;
+end
+
+Panel.List.Comp.Table.List.Data = tableData.Struct;
+
+%     set(data_main.hTable.SS, 'Data', tableData.Struct, 'Visible',   'on');
+% data_main.hPanel.SS.Visible = 'on';
